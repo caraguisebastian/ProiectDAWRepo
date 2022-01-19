@@ -9,6 +9,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using ProiectDAW.Data;
+using ProiectDAW.Repositories.UserRepository;
+using ProiectDAW.Services.UserService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,6 +42,17 @@ namespace ProiectDAW
             //{
             //    Configuration.RootPath = "clientApp/dist";
             //});
+
+            // Repositories
+            // Created each time a request is made
+            services.AddTransient<IUserRepository, UserRepository>();
+            // Created when first request was made
+            //services.AddSingleton<IUserRepository, UserRepository>();
+            // Created once per client request
+            //services.AddScoped<IUserRepository, UserRepository>();
+
+            // Services
+            services.AddTransient<IUserService, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -59,6 +72,7 @@ namespace ProiectDAW
             app.UseAuthorization();
 
             //app.UseStaticFiles();
+            app.UseDeveloperExceptionPage();
 
             app.UseEndpoints(endpoints =>
             {

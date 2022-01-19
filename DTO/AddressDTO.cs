@@ -9,7 +9,7 @@ namespace ProiectDAW.DTO
     public class AddressDTO
     {
         [Required]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string Street { get; set; }
         public int Number { get; set; }
     }

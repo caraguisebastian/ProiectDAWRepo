@@ -9,9 +9,9 @@ namespace ProiectDAW.DTO
     public class OrderDetailDTO
     {
         [Required]
-        public int Id { get; set; }
-        public int OrderId { get; set; }
-        public int ProductId { get; set; }
+        public Guid Id { get; set; }
+        public Guid OrderId { get; set; }
+        public Guid ProductId { get; set; }
         public float Price { get; set; }
         public int Quantity { get; set; }
 

@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ProiectDAW.DTO;
+using ProiectDAW.Services.UserService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,12 +13,19 @@ namespace ProiectDAW.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
+        private readonly IUserService _userService;
+
+        public UserController(IUserService userService)
+        {
+            _userService = userService;
+        }
+
         public static List<UserDTO> users = new List<UserDTO>
         {
-            new UserDTO { Id = 1, Name = "Name1", Username = "username1", Password = "parola1", PhoneNumber = "0721",  Email = "email1", AddressId = 1,},
-            new UserDTO { Id = 2, Name = "Name2", Username = "username2", Password = "parola2", PhoneNumber = "0722",  Email = "email2", AddressId = 2,},
-            new UserDTO { Id = 3, Name = "Name3", Username = "username3", Password = "parola3", PhoneNumber = "0723",  Email = "email3", AddressId = 3,},
-            new UserDTO { Id = 4, Name = "Name4", Username = "username4", Password = "parola4", PhoneNumber = "0724",  Email = "email4", AddressId = 4,}
+            new UserDTO { Id = new Guid(), Name = "Name1", Username = "username1", Password = "parola1", PhoneNumber = "0721",  Email = "email1"},
+            new UserDTO { Id = new Guid(), Name = "Name2", Username = "username2", Password = "parola2", PhoneNumber = "0722",  Email = "email2"},
+            new UserDTO { Id = new Guid(), Name = "Name3", Username = "username3", Password = "parola3", PhoneNumber = "0723",  Email = "email3"},
+            new UserDTO { Id = new Guid(), Name = "Name4", Username = "username4", Password = "parola4", PhoneNumber = "0724",  Email = "email4"}
         };
 
         // GET: api/<UserController>
@@ -25,6 +34,13 @@ namespace ProiectDAW.Controllers
         {
             return Ok(users);
         }
+        [HttpGet("{username}")]
+        public ActionResult<IEnumerable<UserDTO>> GetByUsername(string username)
+        {
+            var result = _userService.GetDataMappedByUsername(username);
+            return Ok(result);
+        }
+
 
         [HttpGet("{id}")]
         public ActionResult<UserDTO> Get(int id)
@@ -44,7 +60,7 @@ namespace ProiectDAW.Controllers
         [HttpPost]
         public ActionResult<UserDTO> Post(UserDTO user)
         {
-            users.Add(user);
+            _userService.Create(user);
 
             return Ok(users);
         }
