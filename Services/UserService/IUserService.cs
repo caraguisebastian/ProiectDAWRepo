@@ -11,5 +11,9 @@ namespace ProiectDAW.Services.UserService
     {
         UserDTO GetDataMappedByUsername(string username);
         UserDTO Create(UserDTO user);
+        Task<List<UserDTO>> Get();
+        Task<UserDTO> GetById(Guid id);
+        User Update(UserDTO user);
+        Guid Delete(Guid id);
     }
 }

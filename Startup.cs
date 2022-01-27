@@ -9,7 +9,11 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using ProiectDAW.Data;
+using ProiectDAW.Repositories.CategoryRepository;
+using ProiectDAW.Repositories.ProductRepository;
 using ProiectDAW.Repositories.UserRepository;
+using ProiectDAW.Services.CategoryService;
+using ProiectDAW.Services.ProductService;
 using ProiectDAW.Services.UserService;
 using System;
 using System.Collections.Generic;
@@ -46,6 +50,8 @@ namespace ProiectDAW
             // Repositories
             // Created each time a request is made
             services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<ICategoryRepository, CategoryRepository>();
+            services.AddTransient<IProductRepository, ProductRepository>();
             // Created when first request was made
             //services.AddSingleton<IUserRepository, UserRepository>();
             // Created once per client request
@@ -53,6 +59,8 @@ namespace ProiectDAW
 
             // Services
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<ICategoryService, CategoryService>();
+            services.AddTransient<IProductService, ProductService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

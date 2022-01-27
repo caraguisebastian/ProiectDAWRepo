@@ -24,7 +24,7 @@ namespace ProiectDAW.Repositories.GenericRepository
         void UpdateRange(IEnumerable<TEntity> entities);
 
         // Delete
-        void Delete(TEntity entity);
+        void Delete(Guid entity);
         void DeleteRange(IEnumerable<TEntity> entities);
 
         // Find

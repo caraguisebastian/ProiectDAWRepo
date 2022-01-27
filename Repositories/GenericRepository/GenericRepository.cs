@@ -23,6 +23,7 @@ namespace ProiectDAW.Repositories.GenericRepository
         // Get all
         public async Task<List<TEntity>> GetAll()
         {
+            //System.Diagnostics.Debug.WriteLine("GenericRepository");
             // the select to the DB and we get the result
             return await _table.AsNoTracking().ToListAsync();
         }
@@ -41,11 +42,12 @@ namespace ProiectDAW.Repositories.GenericRepository
         public void Create(TEntity entity)
         {
             _table.Add(entity);
-            _context.SaveChanges();
+            Save();
         }
         public async Task CreateAsync(TEntity entity)
         {
             await _table.AddAsync(entity);
+            Save();
         }
         public void CreateRange(IEnumerable<TEntity> entities)
         {
@@ -59,21 +61,27 @@ namespace ProiectDAW.Repositories.GenericRepository
         // Update
         public void Update(TEntity entity)
         {
+            entity.DateModified = DateTime.Now;
             _table.Update(entity);
+            Save();
         }
         public void UpdateRange(IEnumerable<TEntity> entities)
         {
             _table.UpdateRange(entities);
+            Save();
         }
 
         // Delete
-        public void Delete(TEntity entity)
+        public void Delete(Guid id)
         {
+            var entity = _table.Find(id);
             _table.Remove(entity);
+            Save();
         }
         public void DeleteRange(IEnumerable<TEntity> entities)
         {
             _table.RemoveRange(entities);
+            Save();
         }
 
         // Find
