@@ -24,6 +24,8 @@ namespace ProiectDAW
 {
     public class Startup
     {
+        //public string SpecificOrigins = "_allowSpecificOrigins";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -34,6 +36,14 @@ namespace ProiectDAW
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddCors(options =>
+            //{
+            //    options.AddPolicy(name: SpecificOrigins,
+            //                        builder =>
+            //                        {
+            //                            builder.WithOrigins("localhost:4200", "https://localhost:4200").AllowAnyMethod().AllowAnyHeader();
+            //                        });
+            //});
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -76,6 +86,12 @@ namespace ProiectDAW
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(x => x
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .SetIsOriginAllowed(origin => true)
+                .AllowCredentials());
 
             app.UseAuthorization();
 
