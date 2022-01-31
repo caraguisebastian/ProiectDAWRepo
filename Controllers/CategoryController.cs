@@ -37,7 +37,7 @@ namespace ProiectDAW.Controllers
 
 
         [HttpPost]
-        public ActionResult<CategoryDTO> Post(CategoryDTO category)
+        public ActionResult<CategoryDTO> Post([FromForm] CategoryDTO category)
         {
 
             _categoryService.Create(category);
@@ -46,7 +46,7 @@ namespace ProiectDAW.Controllers
         }
 
         [HttpPut]
-        public ActionResult<CategoryDTO> Put([FromBody] CategoryDTO category)
+        public ActionResult<CategoryDTO> Put([FromForm] CategoryDTO category)
         {
             _categoryService.Update(category);
             return Ok(category);

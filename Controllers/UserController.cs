@@ -38,7 +38,7 @@ namespace ProiectDAW.Controllers
 
 
         [HttpPost]
-        public ActionResult<UserDTO> Post(UserDTO user)
+        public ActionResult<UserDTO> Post([FromForm] UserDTO user)
         {
             _userService.Create(user);
 
@@ -46,7 +46,7 @@ namespace ProiectDAW.Controllers
         }
 
         [HttpPut]
-        public ActionResult<UserDTO> Put([FromBody] UserDTO user)
+        public ActionResult<UserDTO> Put([FromForm] UserDTO user)
         {
             _userService.Update(user);
             return Ok(user);

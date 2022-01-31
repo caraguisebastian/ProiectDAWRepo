@@ -37,7 +37,7 @@ namespace ProiectDAW.Controllers
 
 
         [HttpPost]
-        public ActionResult<ProductDTO> Post(ProductDTO product)
+        public ActionResult<ProductDTO> Post([FromForm] ProductDTO product)
         {
 
             _productService.Create(product);
@@ -46,7 +46,7 @@ namespace ProiectDAW.Controllers
         }
 
         [HttpPut]
-        public ActionResult<ProductDTO> Put([FromBody] ProductDTO product)
+        public ActionResult<ProductDTO> Put([FromForm] ProductDTO product)
         {
             _productService.Update(product);
             return Ok(product);
